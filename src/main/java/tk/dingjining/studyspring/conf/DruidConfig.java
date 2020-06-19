@@ -31,17 +31,16 @@ public class DruidConfig {
 	 * @return
 	 */
 	@Bean
-	public ServletRegistrationBean statViewServlet() {
-		ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+	public ServletRegistrationBean<?> statViewServlet() {
+		ServletRegistrationBean<?> bean = new ServletRegistrationBean<>(new StatViewServlet(), "/druid/*");
 		HashMap<String, String> map = new HashMap<>(2);
 		map.put("loginUsername", "xinzhi");
 		map.put("loginPassword", "123456");
 		bean.setInitParameters(map);
 		return bean;
 	}
-
 	@Bean
-	public FilterRegistrationBean webStatFilter() {
+	public FilterRegistrationBean<?> webStatFilter() {
 		FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>();
 		bean.setFilter(new WebStatFilter());
 		HashMap<String, String> map = new HashMap<>(8);
