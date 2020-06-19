@@ -6,14 +6,14 @@
 </head>
 <body>
 	<div th:include="include::header"></div>
-		<div th:object="${user}">
-			<span th:text="*{'id:'+id}"></span>
-			<span th:text="*{'username:'+username}"></span>
-			<span th:text="*{'password:'+password}"></span>
-		</div>
+	<div th:object="${user}">
+		<span th:text="*{'id:'+id}"></span>
+		<span th:text="*{'username:'+username}"></span>
+        <span th:text="*{'password:'+password}"></span>
+	</div>
 	<div th:text="#{msg}"></div>
 	<a th:herf="@{login}"></a>
-
+	<p th:text='${#dates.format(#request.getAttribute("date"),"yyyy-mm-dd")}'>
 	<div th:include="include :: footer"></div>
 </body>
 </html>
