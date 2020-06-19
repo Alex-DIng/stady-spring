@@ -1,22 +1,40 @@
-user:
-  username: ding
-  hobby: basketball,football
+#user:
+#  username: ding
+#  hobby: basketball,football
   
-spring:
-  profiles:
-    active: dev #指定使用哪个环境
----
 server:
-  port: 8082
+  port: 443
+  ssl:
+    key-store: server.keystore
+    key-alias: tomcat
+    key-store-password: 65861213
+    key-store-typ: JKS
+
+
+#spring:
+#  profiles:
+#    active: dev #指定使用哪个环境
+
+#server:
+#  port: 8082
 spring:
-  profiles: dev
----
-server:
-  port: 8083
-spring:
-  profiles: test
----
-server:
-  port: 8084
-spring:
- profiles: prod
+#  profiles: dev
+#DB Configuration:
+  datasource:
+    url: jdbc:mysql://192.168.1.16:3307/mysql?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&autoReconnect=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: abcd.1234
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: tk.dingjining.studyspring.entity
+
+#server:
+#  port: 8083
+#spring:
+#  profiles: test
+
+#server:
+#  port: 8084
+#spring:
+# profiles: prod
