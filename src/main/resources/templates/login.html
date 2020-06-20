@@ -14,6 +14,11 @@
 	<div th:text="#{msg}"></div>
 	<a th:herf="@{login}"></a>
 	<p th:text='${#dates.format(#request.getAttribute("date"),"yyyy-mm-dd")}'>
+	<p th:text='${#strings.substring(#request.getAttribute("name"),2)}' />
+	<span th:if="${user.password} == '男'">性别：男</span>
+    <span th:if="${user.password} == '女'">性别：女</span>
+
+    <span th:unless="${user.password} == '女'">性别：男</span>
 	<div th:include="include :: footer"></div>
 </body>
 </html>
