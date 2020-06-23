@@ -8,8 +8,7 @@ server:
     key-store: server.keystore
     key-alias: tomcat
     key-store-password: 65861213
-    key-store-typ: JKS
-
+    key-store-type: JKS
 
 #spring:
 #  profiles:
