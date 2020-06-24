@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MySchedule {
-	@Scheduled(cron = "15 * * * * *")
+	@Scheduled(cron = "0 0 18 * * *")
 	public void task1() {
 		try {
 			Thread.sleep(1000);

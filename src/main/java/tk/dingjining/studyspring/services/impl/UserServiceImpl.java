@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.redis.core.BoundValueOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import tk.dingjining.studyspring.dao.UserMapper;
@@ -14,9 +16,23 @@ import tk.dingjining.studyspring.services.IUserService;
 public class UserServiceImpl implements IUserService {
 	@Resource
 	private UserMapper userMapper;
+	@Resource
+	private RedisTemplate<String, Object> redisTemplate;
 
 	@Override
 	public List<User> getAllUsers() {
-		return userMapper.queryUserList();
+		// stringRedisTemplate.opsForValue().set("user1", "user2");
+		// stringRedisTemplate.opsForHash().put("user2", "user2", "user2");
+		BoundValueOperations<String, Object> userOpt = redisTemplate.boundValueOps("user2");
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) userOpt.get();
+		if (null == users) {
+			System.out.println("-------------shujuku------------");
+			users = userMapper.queryUserList();
+			userOpt.set(users);
+		} else {
+			System.out.println("-------------redis------------");
+		}
+		return users;
 	}
 }

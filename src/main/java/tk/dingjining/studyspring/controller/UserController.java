@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,8 @@ public class UserController {
 //	}
 	@Resource
 	private IUserService userService;
+	@Resource
+	private StringRedisTemplate stringRedisTemplate;
 
 	@GetMapping
 	@ResponseBody
@@ -61,6 +64,8 @@ public class UserController {
 	@ApiResponse(code = 200, message = "用户信息拿到了")
 	@ResponseBody
 	public User getUsers(@PathVariable int id) {
+	
+
 		return new User(id, "zhangsan", "11122");
 	}
 
