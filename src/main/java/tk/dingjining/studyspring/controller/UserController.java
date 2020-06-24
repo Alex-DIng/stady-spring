@@ -1,6 +1,8 @@
 package tk.dingjining.studyspring.controller;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.annotation.Resource;
 
@@ -56,6 +58,11 @@ public class UserController {
 	@ApiImplicitParam(name = "id", value = "用户id", paramType = "int", defaultValue = "2")
 	@ApiResponse(code = 200, message = "用户信息拿到了")
 	public List<User> getUsers() {
+		ExecutorService executorService = Executors.newFixedThreadPool(1000);
+		Runnable runnable = () -> userService.getAllUsers();
+		for (int i = 0; i < 500; i++) {
+			executorService.execute(runnable);
+		}
 		return userService.getAllUsers();
 	}
 
@@ -64,7 +71,6 @@ public class UserController {
 	@ApiResponse(code = 200, message = "用户信息拿到了")
 	@ResponseBody
 	public User getUsers(@PathVariable int id) {
-	
 
 		return new User(id, "zhangsan", "11122");
 	}

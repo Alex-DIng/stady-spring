@@ -19,17 +19,26 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	@Override
 	public List<User> getAllUsers() {
 		// stringRedisTemplate.opsForValue().set("user1", "user2");
 		// stringRedisTemplate.opsForHash().put("user2", "user2", "user2");
 		BoundValueOperations<String, Object> userOpt = redisTemplate.boundValueOps("user2");
-		@SuppressWarnings("unchecked")
 		List<User> users = (List<User>) userOpt.get();
+
 		if (null == users) {
-			System.out.println("-------------shujuku------------");
-			users = userMapper.queryUserList();
-			userOpt.set(users);
+			synchronized (this) {
+				users= (List<User>) userOpt.get();
+				if (null == users) {
+				  System.out.println("-------------shujuku------------");
+				users = userMapper.queryUserList();
+				userOpt.set(users);
+				}else {
+					users= (List<User>) userOpt.get();
+					System.out.println("-------------redis------------");
+				}
+			}
 		} else {
 			System.out.println("-------------redis------------");
 		}
