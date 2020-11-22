@@ -63,6 +63,25 @@ spring:
       content-type: text/html; charset=utf-8
     mode: HTML5
     cache: false
+  boot:
+    admin:
+      client:
+        url: "http://localhost:9090"
+        
 mybatis:
   mapper-locations: mapper/*.xml
   type-aliases-package: tk.dingjining.studyspring.entity
+  
+  
+shiro:
+  loginUrl: /toLogin
+  successUrl: /
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /actuator
+      
+      

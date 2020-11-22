@@ -5,4 +5,7 @@
 	<select id="queryUserList" resultType="User">
 		select * from db01.user
 	</select>
+	<select id="queryUserListById" resultType="User">
+		select * from db01.user us where us.id=#{id}
+	</select>
 </mapper>

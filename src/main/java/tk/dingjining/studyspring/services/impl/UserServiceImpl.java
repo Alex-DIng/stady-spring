@@ -19,7 +19,7 @@ public class UserServiceImpl implements IUserService {
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
 
-	@SuppressWarnings({ "unchecked", "unused" })
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<User> getAllUsers() {
 		// stringRedisTemplate.opsForValue().set("user1", "user2");
@@ -29,19 +29,24 @@ public class UserServiceImpl implements IUserService {
 
 		if (null == users) {
 			synchronized (this) {
-				users= (List<User>) userOpt.get();
+				users = (List<User>) userOpt.get();
 				if (null == users) {
-				  System.out.println("-------------shujuku------------");
-				users = userMapper.queryUserList();
-				userOpt.set(users);
-				}else {
-					users= (List<User>) userOpt.get();
-					System.out.println("-------------redis------------");
+					System.out.println("-------------shujuku------------");
+					users = userMapper.queryUserList();
+					userOpt.set(users);
+				} else {
+					users = (List<User>) userOpt.get();
+					System.out.println("-------------redis1------------");
 				}
 			}
 		} else {
-			System.out.println("-------------redis------------");
+			System.out.println("-------------redis2------------");
 		}
 		return users;
+	}
+
+	@Override
+	public List<User> getAllUsersById(String id) {
+		return null;
 	}
 }
